@@ -1,0 +1,81 @@
+<!DOCTYPE html> 
+<html lang="en">
+    <head> 
+		<title>Money Manager Main</title>
+		<meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="styles.css">
+    </head> 
+<body> 
+	<div>
+	<h1>WELCOME TO THE MONEY MANAGER</h1>
+	<h2>Here, you will be able to do several things</h2>
+	</div>
+	<div>
+		<ul>
+			<li>Add money earned</li>
+			<li>Deduct your balance</li>
+			<li>Read links to good financial advice</li>
+		</ul>
+	</div>
+		<p></p>
+	<div class="row">
+		<div class="column">
+			<p id="pborder2">Did you know that everything we have is a gift from god, and actually belongs to God?
+			The word of God teaches us that many things are a gift from god.  Our life, our freedom, our intellect,
+			our ability to worship him - and even our children - or our future children!
+			</p>
+		</div>
+		<div class="column">
+			<p id="pborder1">That's right. Even the money we earn belongs to him, and we should use it to bring Glory to him.
+			Money is a complicated issue.  Sometimes we aren't sure how we should save it, sometimes we aren't sure
+			how we should spend it, and sometimes it becomes a problem for us!</p>
+		</div>
+	</div>
+	<h4>Here are a couple useful verses about money...</h4>
+		
+		<ul>
+			<li>Prov 13:11 - "Dishonest money dwindles away,  but whoever gathers money little by little makes it grow.</li>
+			<li>Prov 3:9 - "Honor the LORD with your wealth, with the firstfruits of your crops.</li>
+		</ul>
+	<div></div> 
+        
+	<div class="row">
+		<div class="column">
+			<form class="moneyform">
+				<fieldset>
+				<legend>Add Money</legend>
+				Add Money: <input type="text" id="addmoney" value="$$$$$$">
+				<button onclick="addmoney()">Add Money</button>
+				</fieldset>
+			</form>
+			<br></br>
+			<form class="moneyform">
+				<fieldset>
+				<legend>Deduct Money</legend>
+				Add Money: <input type="text" id="deductmoney" value="You Sure?">
+				<button onclick="deductmoney()">Deduct Money</button>
+				</fieldset>
+			</form>
+			<br></br>
+			<form class="moneyform">
+				<fieldset>
+				<legend>What's in the bank?</legend>
+				Add Money: <input type="text" id="showtotal" value="Show me the money!">
+				<button onclick="showtotalmoney()">Show Total</button>
+				</fieldset>
+			</form>
+		</div>
+		<div class="column">
+			<p class="addmoneyresult">Money Added:</p>
+			<p>You've just added BLANK money</p>
+			<p class="deductresult">Money Deducted:</p>
+			<p>You've just deducted BLANK money</p>
+			<p class="totalresult">Money Total:</p>
+			<p>Your total is BLANK</p>
+			
+		</div>
+	</div> 
+    
+	<script src="scripts.js"></script>
+</body>
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>generator</title>
+<style>
+
+#output{
+width:11in;
+height:8.5in;
+border:1px solid green;
+}
+#output2{
+display:none;
+/* 
+width:2.1251in;
+border:1px solid green;
+float:right;
+ */
+}
+iframe{
+vertical-align:bottom;
+	border:0;
+	margin:0;
+	width: 6in;
+	height: 2.5in;
+	width: 5.1in;
+	height: 2.125in;
+	page-break-inside: avoid;
+}
+iframe.sideways{
+	height: 6in;
+	width: 2.5in;
+	height: 5.1in;
+	width: 2.125in;
+}
+@media print
+{
+	.np{display:none;}
+	
+	#output,#output2{
+	border:0;
+	}
+	html,body{
+	margin:0;padding:0;border:0;
+	image-rendering: optimizequality;
+	}
+	body{
+	margin-left:5mm;
+	}
+}
+@page{
+margin:0in;
+/* 
+margin-left:.25in;
+margin-right:.25in;
+ */
+size: A4 landscape;
+}
+</style>
+</head>
+<body>
+<div class="np">
+<pre>
+remember optimizer needs urls of script tags made relative. kill xml tag at top too.
+https://developer.mozilla.org/en-US/docs/Web/Guide/Printing
+** remember to store code entry dates and date of $ issue **
+	entry: an idea of when they got it
+	issue: when it came from (past semester?)  if I issue for each week...
+		optional: issue money for each week.
+2do:
+integrate into exchange app's generator - fills textarea with code listing, save/restore to localstorage - generator goes to pop-up from this listing; after gen, a clear button is accessible.
+school name/logo separate svg files. B&W versions (mess with css colors) WHEN inkscape supports it...
+
+This page for printing;
+	generator asks PAGE SIZE. creates DIV tag for each PAGE. places iframes into that. still use no break on them.
+	Ask how many per page - resize page DIV and iframes. to fit. KEEP SIMPLE- require page setup landscape!  landscape fits MORE.
+	
+</pre>
+<form action="$10opt.svg" onsubmit="gen(this);return false;">
+	<textarea name="id" id="genlist">
+2Y4CUFY
+RXAD4MH
+	</textarea><br />
+	course <input type="text" value="ICS 225" name="course" /> <br />
+	face <input type="text" value="face.jpg" name="face" /> <br />
+	name <input type="text" name="name" value="BUSSJAEGER" maxlength="16" pattern="^[A-Z]+$" /> <br />
+	partial url (code is only appended) <input type="url" value="http://domfu.com/$/" name="url" /> <br />
+	<p>
+	<input type="text" name="note" id="note" maxlength="21" placeholder="note" /> <br />
+	<input type="text" name="height" value="2.125" /> <br />
+	<input type="radio" value="1" name="value" /> $1
+	<input type="radio" value="5" name="value" /> $5
+	<input type="radio" value="1000" name="value" checked="checked" /> $10
+	<input type="checkbox" value="1" name="bw" /> B&amp;W<br>
+	</p>
+
+
+	<input type="submit"  />
+</form>
+<p>
+<input type="button" value="clear gen" onclick="document.getElementById('output').innerHTML='';" />
+</p>
+
+
+<hr />
+<form action="https://domfu.com/cgi-bin/app/tempexchange2019" target="gen" method="POST">
+	<label># <input type="number" value="26" onchange="generate(this)" /></label>
+	<br />
+<!-- 
+change this to do both kinds at once?
+
+NO:
+	change banking app so it can print money directly from the DB.  You have to search the DB and filter results to decide what to print out.
+	gen of money just is automated entry of what you can do manually 1 at a time.
+
+	<label># LAB <input type="number" value="22" onchange="generate(this)" /></label>
+	<br />
+ -->
+	<textarea name="barcodes">
+	</textarea><br />
+	<input type="text" name="note" maxlength="21" placeholder="note" onchange="document.getElementById('note').value=this.value;" /> <br />
+	<input type="text" name="value" placeholder="val" value="1000" /> <br />
+	<input type="text" name="cid" placeholder="val" value="ics22520190101" /> <br />
+	<input type="hidden" name="pregen" value="1" />
+	<input type="submit" value="create" />
+</form>
+<script src="CRC5.js"></script>
+<script src="encodeBaseX.js"></script>
+<!-- <script src="encodeBaseX_entry.js"></script> -->
+
+<script src="ajax_tiny.js"></script>
+<script >
+Math.rand=function(min, max){
+	return Math.random() * (max - min) + min;
+};
+
+
+function generate(e){
+	var count=		e.value;
+	var note=		e.form.elements[2];
+	var value=		e.form.elements[3];
+	var cid=		e.form.elements[4];
+	var ENTROPY=	38;
+	var NUMBER_RANGE=	Math.pow(2, ENTROPY-10) % Number.MAX_SAFE_INTEGER;//2do: more realistic entropy level should be used.
+
+	var s=			'',rand;
+	for(var i=0; i<count; ++i){
+		rand=	 	Math.floor( Math.rand( 1 , NUMBER_RANGE)  );
+		s+=			encodeBaseX( CRC5( rand, ENTROPY ) ) + encodeBaseX( rand );
+		s+= 		'\n';
+	}
+	e.form.elements[1].value=		s;
+	document.getElementById('genlist').value=	s;
+}
+
+
+function gen(form){
+	var ids=	form.elements[0].value.trim().split(/\n+/gm);
+	var course=	form.elements[1].value;
+	var face=	form.elements[2].value;
+	var name=	form.elements[3].value;
+	var url=	form.elements[4].value;
+	var note=	form.elements[5].value;
+	var bw=		form.elements[10].checked;
+	
+	var height=	parseFloat(form.elements[6].value);
+
+	var d=		document.getElementById('output');
+	var v=		document.getElementById('output2');
+	
+	
+	for( var i=0; i<ids.length; ++i ){
+		ids[i]= ids[i].trim();
+		var x=document.createElement('iframe');
+		x.setAttribute('style','height:'+height+'in');
+		x.setAttribute('src', form.getAttribute('action')
+			+'?id='+ encodeURIComponent( ids[i] ) 
+			+'&url='+ encodeURIComponent( url ) 
+			+'&face='+ encodeURIComponent( face ) 
+			+'&name='+ encodeURIComponent( name ) 
+			+'&course='+ encodeURIComponent( course ) 
+			+'&note='+ encodeURIComponent( note ) 
+			+ ( bw ? '&bw=1' : '')
+		);
+// 		if( i % 4 ){
+			d.appendChild( x );
+// 		}
+// 		else{
+// 			x.setAttribute('class','sideways');
+// 			x.addEventListener( 'load', function(e){
+// 				var svg = e.target.contentDocument.documentElement;
+// 				svg.setAttribute('viewBox','0 0 63 152');
+// 				for(var i=0; i< svg.children.length; ++i){
+// 					if( svg.children[i].nodeName === 'g' ){
+// 						svg.children[i].setAttribute('transform','rotate(90,148.48235,148.50307)');
+// 						break;
+// 					}
+// 				}
+// 			}, false );
+// 			v.appendChild( x );
+// 		}
+	}
+}
+</script>
+</div>
+<div id="output2"></div><div id="output"></div>
+</body>
+</html>

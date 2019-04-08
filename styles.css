@@ -1,0 +1,107 @@
+body{
+	background-image: url("dollar1.jpg");
+	margin: auto;
+	text-align:center;
+	padding-bottom: .3em;
+	padding-top: .3em;
+	background-repeat: repeat-y;
+	background-position: center center;
+	background-attachment: fixed;
+	background-size: cover;
+}
+
+h1, h2, h3, h4 {
+	background-color: black;
+	border: 5px solid green;
+	color: #00cc00;
+	text-shadow: 1px 1px 5px black, 0 0 10px #cc9900;
+}
+ul {
+	background-color: black;
+	color: #009933;
+	text-shadow: 1px 1px 5px black, 0 0 10px #cc9900;
+	margin: auto;
+	text-align:center;
+	border: 3px solid green;
+}
+
+.row {
+  display: flex;
+}
+
+/* Create two equal columns that sits next to each other */
+.column {
+  flex: 50%;
+  padding: 10px;
+  height: 300px; /* Should be removed. Only for demonstration */
+}
+#pborder1 {
+	font-style: italic;
+	background-color: lightgrey;
+    width: 250px;
+    border: 25px solid green;
+    padding: 35px;
+	margin: auto;
+}
+#pborder2 {
+	font-style: italic;
+	background-color: lightgrey;
+    width: 250px;
+    border: 25px solid green;
+    padding: 35px;
+	margin: auto;
+}
+.moneyform {
+	font-style: italic;
+	background-color: lightgrey;
+    width: 250px;
+    border: 25px solid green;
+    padding: 5px;
+	margin: auto;
+}
+.addmoneyresult {
+	letter-spacing: 3px;
+	color: black;
+	font-size: 1.5em;
+	font-weight: 900;
+	text-shadow: 1px 1px green;
+	background-color: gray;
+}
+.deductresult {
+	margin-top: 4.3em;
+	letter-spacing: 3px;
+	color: black;
+	font-size: 1.5em;
+	font-weight: 900;
+	text-shadow: 1px 1px red;
+	background-color: gray;
+}
+.totalresult{
+	margin-top: 2em;
+	letter-spacing: 3px;
+	color: black;
+	font-size: 1.5em;
+	font-weight: 900;
+	text-shadow: 1px 1px yellow;
+	background-color: green;
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
